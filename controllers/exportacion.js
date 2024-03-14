@@ -31,23 +31,27 @@ const postRegistroExportacion = async(req, res) => {
 }
 
 const putExportacion = async (req, res) => {
-    const { producto, kilos, precioKilos } = req.body // desectructurar el array con los datos
-    let mensaje = ''
+    const { _id, producto, kilos, precioKilos } = req.body; // desestructura el array con los datos
+    let mensaje = '';
 
     try {
-        const exportacion = await Exportacion.findOneAndUpdate({_id: _id}, // Búsqueda
-            { producto, kilos, precioKilos }); // Campos a editar
+        const exportacion = await Exportacion.findOneAndUpdate(
+            {_id: _id}, // Búsqueda
+            { producto, kilos, precioKilos }, // Campos a editar
+            { new: true } // Para obtener el documento actualizado
+        );
         
         if (!exportacion) {
             return res.status(404).json({ mensaje: 'No se encontró la exportación' });
         }
     
-        const mensaje = 'Actualización exitosa';
+        mensaje = 'Actualización exitosa';
         return res.status(200).json({ mensaje });
     } catch (error) {
         return res.status(500).json({ mensaje: 'Error en el servidor' });
     }
 }
+
 
 const deleteExportacion = async (req, res) => {
     const { _id } = req.query // desectructurar el array con los datos
