@@ -21,7 +21,12 @@ const exportacionesSchema = ({
     precioDolar:{
         type: Number
         },   
-})
+});
+
+exportacionesSchema.pre('findOneAndDelete', async function(next) {
+    // No aplicamos validación para la operación de eliminación
+    next();
+});
 
 module.exports = model('Exportacion', exportacionesSchema)
 
