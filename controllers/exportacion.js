@@ -28,10 +28,49 @@ const postRegistroExportacion = async(req, res) => {
         msg: mensaje 
     })
 
-}    
+}
+
+const putExportacion = async (req, res) => {
+    const { producto, kilos, precioKilos } = req.body // desectructurar el array con los datos
+    let mensaje = ''
+
+    try {
+        const exportacion = await Exportacion.findOneAndUpdate({_id: _id}, // Busqueda
+        { producto, kilos, precioKilos }) // Campos a editar
+        mensaje = 'actualizacion exitosa'
+
+    } catch (error) {
+        mensaje = error
+    }
+
+    res.json({
+        msg: mensaje
+
+    })
+}
+
+const deleteExportacion = async (req, res) => {
+    const { _id } = req.query // desectructurar el array con los datos
+    let mensaje = ''
+
+    try {
+        const exportacion = await AgendaServicios.findOneAndDelete({_id:_id}) // Busqueda
+        mensaje = 'eliminacion exitosa'
+
+    } catch (error) {
+        mensaje = error
+    }
+
+    res.json({
+        msg: mensaje
+
+    })
+}
 
 
 module.exports = {
     postRegistroExportacion,
-    getExportacion
+    getExportacion,
+    putExportacion,
+    deleteExportacion
 }
