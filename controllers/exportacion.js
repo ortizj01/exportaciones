@@ -35,18 +35,18 @@ const putExportacion = async (req, res) => {
     let mensaje = ''
 
     try {
-        const exportacion = await Exportacion.findOneAndUpdate({_id: _id}, // Busqueda
-        { producto, kilos, precioKilos }) // Campos a editar
-        mensaje = 'actualizacion exitosa'
-
+        const exportacion = await Exportacion.findOneAndUpdate({_id: _id}, // Búsqueda
+            { producto, kilos, precioKilos }); // Campos a editar
+        
+        if (!exportacion) {
+            return res.status(404).json({ mensaje: 'No se encontró la exportación' });
+        }
+    
+        const mensaje = 'Actualización exitosa';
+        return res.status(200).json({ mensaje });
     } catch (error) {
-        mensaje = error
+        return res.status(500).json({ mensaje: 'Error en el servidor' });
     }
-
-    res.json({
-        msg: mensaje
-
-    })
 }
 
 const deleteExportacion = async (req, res) => {
