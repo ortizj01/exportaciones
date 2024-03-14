@@ -58,7 +58,7 @@ const deleteExportacion = async (req, res) => {
     let mensaje = ''
 
     try {
-        const exportacion = await AgendaServicios.findOneAndDelete({_id:_id}) // Busqueda
+        const exportacion = await Exportacion.findOneAndDelete({_id:_id}) // Busqueda
         mensaje = 'eliminacion exitosa'
 
     } catch (error) {
