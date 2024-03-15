@@ -54,11 +54,11 @@ const putExportacion = async (req, res) => {
 
 
 const deleteExportacion = async (req, res) => {
-    const { _id } = req.query;
+    const { id } = req.query;
     let mensaje = '';
 
     try {
-        const exportacion = await Exportacion.findByIdAndDelete(_id); // Encuentra y elimina el documento por su _id
+        const exportacion = await Exportacion.findByIdAndDelete(id); // Encuentra y elimina el documento por su _id
         if (!exportacion) {
             return res.status(404).json({ mensaje: 'No se encontró la exportación' });
         }
